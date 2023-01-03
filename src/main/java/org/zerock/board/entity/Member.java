@@ -11,8 +11,9 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @ToString
-public class Member {
+public class Member extends BaseEntity {
 
+    // 이메일 주소 PK
     @Id
     private String email;
 
@@ -20,5 +21,5 @@ public class Member {
 
     private String name;
 
-    
+
 }
