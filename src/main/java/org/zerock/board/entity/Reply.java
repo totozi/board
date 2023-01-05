@@ -24,6 +24,4 @@ public class Reply extends BaseEntity {
     @ManyToOne
     private Board board; // 연관관계 지정
 
-
-
 }
