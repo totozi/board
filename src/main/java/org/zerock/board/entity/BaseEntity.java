@@ -16,8 +16,11 @@ import java.time.LocalDateTime;
 @Getter
 abstract class BaseEntity {
 
+    // 모든 엔티티에 적용될 필드 세팅 -> 이력관리 등을 위함 
+    
+    
     @CreatedDate
-    @Column(name = "regdate", updatable = false)
+    @Column(name = "regdate", updatable = false) 
     private LocalDateTime regDate;
 
     @LastModifiedDate
