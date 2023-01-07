@@ -21,7 +21,8 @@ public class Board extends BaseEntity {
 
     private String content;
 
-    @ManyToOne
+    // Eager 즉시 로딩은 한 번에 연관관계가 있는 모든 엔티티를 가져온다.
+    @ManyToOne(fetch = FetchType.LAZY) // 명시적으로 Lazy 로딩 지정 :
     private Member writer; // 연관관계 지정
 
 }
