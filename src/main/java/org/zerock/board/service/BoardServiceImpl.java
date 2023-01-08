@@ -5,12 +5,14 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.dto.PageRequestDTO;
 import org.zerock.board.dto.PageResultDTO;
 import org.zerock.board.entity.Board;
 import org.zerock.board.entity.Member;
 import org.zerock.board.repository.BoardRepository;
+import org.zerock.board.repository.ReplyRepository;
 
 import java.util.function.Function;
 
@@ -20,6 +22,8 @@ import java.util.function.Function;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository repository; // 자동 주입 final
+
+    private final ReplyRepository replyRepository; // 추가
 
     @Override
     public Long register(BoardDTO dto) {
@@ -54,6 +58,17 @@ public class BoardServiceImpl implements BoardService {
 
         return entityToDTO((Board) arr[0], (Member) arr[1], (Long) arr[2]);
 
+    }
+
+    @Transactional
+    @Override
+    public void removeWithReplies(Long bno) {
+
+        // 댓글 부터 삭제
+
+        replyRepository.deleteByBno(bno);
+
+        repository.deleteById(bno);
     }
 
 }
