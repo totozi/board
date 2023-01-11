@@ -92,5 +92,11 @@ public class BoardRepositoryTests {
         });
     }
 
+    @Test
+    public void testSearch1(){
+
+        boardRepository.search1();
+    }
+
 
 }
