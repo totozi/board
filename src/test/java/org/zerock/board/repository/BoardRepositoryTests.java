@@ -34,7 +34,7 @@ public class BoardRepositoryTests {
             Member member = Member.builder().email("user" + i + "@aaa.com").build();
 
             Board board = Board.builder()
-                    .title("Title...." +i)
+                    .title("Title...." + i)
                     .content("Content...." + i)
                     .writer(member)
                     .build();
@@ -80,7 +80,7 @@ public class BoardRepositoryTests {
     }
 
     @Test
-    public void testWithReplyCount(){
+    public void testWithReplyCount() {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
 
         Page<Object[]> result = boardRepository.getBoardWithReplyCount(pageable);
@@ -93,9 +93,18 @@ public class BoardRepositoryTests {
     }
 
     @Test
-    public void testSearch1(){
+    public void testSearch1() {
 
         boardRepository.search1();
+    }
+
+    @Test
+    public void testSearchPage() {
+        Pageable pageable = PageRequest.of(0, 10,
+                Sort.by("bno").descending()
+                        .and(Sort.by("title").ascending()));
+
+        Page<Object[]> result = boardRepository.searchPage("t", "1", pageable);
     }
 
 
