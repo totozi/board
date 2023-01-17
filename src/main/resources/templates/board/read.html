@@ -53,7 +53,7 @@
           <div class="modal-header">
             <h5 class="modal-title">Modal title</h5>
             
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -70,7 +70,7 @@
             <button type="button" class="btn btn-danger replyRemove">Remove</button>
             <button type="button" class="btn btn-warning replyModify">Modify</button>
             <button type="button" class="btn btn-primary replySave">Save</button>
-            <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-secondary replyClose" data-bs-dismiss="modal">Close</button>
           </div>
 
         </div>
@@ -195,6 +195,43 @@
 
       var rno = $("input[name='rno']").val(); // 모달창에 보이는 댓글 번호 hidden 처리된거 
 
+      var reply = {
+        rno : rno,
+        bno : bno,
+        text : $('input[name="replyText"]').val(),
+        replyer : $('input[name="replyer"]').val()
+      }
+
+      console.log(reply);
+
+      $.ajax({
+        url : '/replies/' + rno,
+        method : 'put',
+        data : JSON.stringify(reply),
+        contentType : 'application/json; charset=utf-8',
+        success:function(result){
+
+          console.log('result : ' + result);
+
+          if(result === 'success') {
+            alert("댓글이 수정되었습니다.");
+            modal.modal('hide');
+            loadJSONDate();
+
+          }
+
+
+        }
+
+
+
+      })
+    })
+
+    $(".replyModify").click(function() {
+
+      var rno = $("input[name='rno']").val(); // 모달창에 보이는 댓글 번호 hidden 처리된거 
+
       $.ajax({
         url : '/replies/' + rno,
         method : 'delete',
@@ -210,6 +247,8 @@
           } 
         }
 
+
+        
       })
     })
     
